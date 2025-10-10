@@ -1,0 +1,114 @@
+
+;Comment "PARAMETER" to ignore PARAMETER.MPFD
+N10 DEF REAL _defaultspeed = 3000
+N20 DEF REAL _xStart = -134.893;111
+N20 DEF REAL _xStop = 169.625;-207
+N20 DEF REAL _yPos = 79.891;-165.764
+N20 DEF REAL _zLow = 2.9;47.95
+N20 DEF REAL _zHigh = 50
+N20 DEF REAL _index = 0
+N20 DEF REAL _repeat = 10
+
+
+;Comment "My extension, please verify"
+N20 DEF REAL _x1 = -96.839
+N20 DEF REAL _x2 = -58.761
+N20 DEF REAL _x3 = -20.692
+N20 DEF REAL _x4 = 17.378
+N20 DEF REAL _x5 = 55.433
+N20 DEF REAL _x6 = 93.495
+N20 DEF REAL _x7 = 131.553
+
+;Comment "My extension, please verify"
+N20 DEF REAL _y1 = 79.866
+N20 DEF REAL _y2 = 79.841
+N20 DEF REAL _y3 = 79.816
+N20 DEF REAL _y4 = 79.791
+N20 DEF REAL _y5 = 79.776
+N20 DEF REAL _y6 = 79.751
+N20 DEF REAL _y7 = 79.726
+
+;Comment "My extension, please verify"
+N20 DEF REAL _z1 = 2.91
+N20 DEF REAL _z2 = 3.00
+N20 DEF REAL _z3 = 3.05
+N20 DEF REAL _z4 = 2.95
+N20 DEF REAL _z5 = 2.85
+N20 DEF REAL _z6 = 2.87
+N20 DEF REAL _z7 = 2.89
+
+
+N20 TRAORI
+N30 $SC_SD_MAX_PATH_ACCEL = 0.5
+N52 G505
+$AN_SLTRACE =1
+N42 PRIO_OFF
+N45 PRIO_ADD_OUTPUT='B000000000'
+N50 CYCLE832(0.1,_ORI_ROUGH,0.1)
+N70 PRIO_PULSE_DISTANCE = 0.1
+
+F3000
+N240 z = _zHigh
+F1500
+N200 y=_yPos a=0 b= 0 c=0
+
+FOR _index = 1 TO _repeat
+    F3000
+
+    N45 PRIO_ADD_OUTPUT='B000000000'
+    N240 z = _zHigh
+
+    N250    x = _xStart
+
+    F3000
+    M0
+    N240 z = _zLow
+    M0
+
+
+
+    ;Comment "My extension, please verify"
+    N250    x = _x1
+    N200    y = _y1
+    N240    z = _z1
+
+    N250    x = _x2
+    N200    y = _y2
+    N240    z = _z2
+
+    N250    x = _x3
+    N200    y = _y3
+    N240    z = _z3
+
+    N250    x = _x4
+    N200    y = _y4
+    N240    z = _z4
+
+    N250    x = _x5
+    N200    y = _y5
+    N240    z = _z5
+
+    N250    x = _x6
+    N200    y = _y6
+    N240    z = _z6
+
+    N250    x = _x7
+    N200    y = _y7
+    N240    z = _z7
+
+    N42 PRIO_ON
+    N305 PRIO_ADD_OUTPUT='B000000001'
+    N310 x = _xStop
+    N45 PRIO_ADD_OUTPUT='B000000000'
+    N330 z = _zHigh
+ENDFOR
+$AN_SLTRACE =2
+N330 z = _zHigh
+N200 a=0 b= 0 c=0
+
+
+
+
+
+
+N380 M30 ; end
